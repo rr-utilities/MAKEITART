@@ -7,38 +7,58 @@
 </head>
 
 <body>
-    <audio src="art/cosy_ambient.mp3" autoplay loop></audio>
+    <button id="playBtn">AMBIENTE</button>
+    <audio id="bgMusic" src="art/cosy_ambient.mp3" loop></audio>
 
     <h1>MAKEITART</h1>
 
     <img src="art/art00.jpg" width="400" alt="art00">
     <h3>art00 2026-07-01 welcome</h3>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
 
-
+<body>
     <h2>col01 2026-10-01 spanisch isch langwilig</h2>
+    <h4>SPANISCH ist langweilig, aber nicht nur Spanisch, ODER ;) es nervt noch ETWAS mehr. Aber alles Nerven kann auch in Kunst ENTLADEN werden.</h4>
     <br>
-    <img src="art/art01.JPG" width="400" alt="art00">
+    <img src="art/art01.JPG" width="400" alt="art01">
     <h3>art01 healthy mind</h3>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-    <img src="art/art02_1.JPG" width="400" alt="art00">
-    <img src="art/art02_2.JPG" width="400" alt="art00">
-    <h3>art02 healthiest mind</h3>
+    <img src="art/art02.JPG" width="400" alt="art04">
+    <h3>art02 2070</h3>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
 
-    <img src="art/art03.JPG" width="400" alt="art00">
-    <h3>art03 2070</h3>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-    <h2>col02 2026-XX-XX englisch isch langwilig</h2>
+<!--
+<body>
+    <h2>col02 2026-XX-XX Doppelseitig: An</h2>
+    <h4>alles hat zwei Seiten. alles. die zweite seite hat alles. alles hat die zweite seite. alles hat zwei seiten.</h4>
     <br>
-    <!--img / h3-->
+    <img src="art/art03_1.JPG" width="400" alt="art02">
+    <img src="art/art03_2.JPG" width="400" alt="art03">
+    <h3>art03 crack City</h3>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+    <img src="" width="400" alt="art04">
+    <h3>art04 -</h3>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <img src="" width="400" alt="art05">
+    <h3>art05 -</h3>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <img src="" width="400" alt="art06">
+    <h3>art06 -</h3>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+-->
+
+<body>
     <h3>cosy_ambient</h3>
-    <h5>FÜR EIN ANGENEHMES AMBIENTE SORGT DAS LIED "JUBILATION" VON SPOOKY TOOTH. MEHR INFOS HABE ICH NICHT GEFUNDEN, ABER ES TÖNT GUT. ENTWEDER SPIELT DAS LIED AUTOMATISCH ODER ES SPIELT (AUS TECHNISCHEN GRÜNDEN) GAR NICHT.</h5>
+    <h5>FÜR EIN ANGENEHMES AMBIENTE SORGT DAS LIED "JUBILATION" VON SPOOKY TOOTH. MEHR INFOS HABE ICH NICHT GEFUNDEN, ABER ES TÖNT GUT.</h5>
     <br><br><br><br><br>
 </body>
 
@@ -72,5 +92,21 @@
         }
     }
 </style>
+
+<script>
+    const audio = document.getElementById("bgMusic");
+    const btn = document.getElementById("playBtn");
+
+    btn.addEventListener("click", () => {
+        if (audio.paused) {
+            audio.play();
+            btn.textContent = "AMBIENTE AN";
+        } else {
+            audio.pause();
+            btn.textContent = "AMBIENTE";
+        }
+    });
+</script>
+
 
 </html>
