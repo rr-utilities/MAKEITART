@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" href="../art/cov01.jpg" type="image/jpg">
+    <link rel="apple-touch-icon" href="../art/cov01.jpg">
+    <meta name="apple-mobile-web-app-title" content="humanoid">
+</head>
+
+<head>
+    <meta charset="UTF-8">
+    <title>MAKEITART</title>
+</head>
+
+<h2>humanoid</h2>
+
+<img src="../../art/cov01.jpg" width="200">
+<p>EP / 9 / 19:59 / 01.03.2026</p>
+
+<hr>
+
+<h3 id="title">Kein Song</h3>
+<div>
+    <span id="currentTime">0:00</span>
+    <input type="range" id="progress" value="0" min="0" max="100" step="1" style="width:300px;">
+    <span id="duration">0:00</span>
+</div>
+
+<hr>
+
+<ol id="playlist"></ol>
+
+<hr>
+
+<button onclick="play()">Play</button>
+<button onclick="pause()">Pause</button>
+<button onclick="prev()">Prev</button>
+<button onclick="next()">Next</button>
+
+<audio id="audio"></audio>
+
+<hr>
+
+Distributed by RR Prime (Raisonix Group) <br>
+&copy; 2026 MAKEITART <br>
+&#8471; 2026 MAKEITART
+
+
+<script>
+    const songs = [
+    { title: "intro", src: "intro.m4a" },
+    { title: "all hell loose breaks", src: "all hell loose breaks.m4a" },
+    { title: "shit trip", src: "shit trip.m4a" },
+    { title: "heavy road", src: "heavy road.m4a" },
+    { title: "headshot in arabia", src: "headshot in arabia.m4a" },
+    { title: "die in hell (prelude)", src: "die in hell prelude.m4a" },
+    { title: "die in hell", src: "die in hell.m4a" },
+    { title: "last maneuver", src: "last maneuver.m4a" },
+    { title: "that's it", src: "thats it.m4a" }
+    ];
+
+    let currentIndex = 0;
+
+    const audio = document.getElementById("audio");
+    const title = document.getElementById("title");
+    const playlist = document.getElementById("playlist");
+    const progress = document.getElementById("progress");
+    const currentTimeEl = document.getElementById("currentTime");
+    const durationEl = document.getElementById("duration");
+
+    function renderPlaylist() {
+    playlist.innerHTML = "";
+    songs.forEach((song, index) => {
+    const li = document.createElement("li");
+    li.textContent = (index === currentIndex ? "▶ " : "") + song.title;
+    li.onclick = () => selectSong(index);
+    playlist.appendChild(li);
+    });
+    }
+
+    function loadSong(index) {
+    currentIndex = index;
+    audio.src = songs[index].src;
+    title.textContent = songs[index].title;
+    renderPlaylist();
+    }
+
+    function selectSong(index) {
+    loadSong(index);
+    audio.play();
+    }
+
+    function play() {
+    audio.play();
+    }
+
+    function pause() {
+    audio.pause();
+    }
+
+    function next() {
+    currentIndex++;
+    if (currentIndex >= songs.length) currentIndex = 0;
+    loadSong(currentIndex);
+    audio.play();
+    }
+
+    function prev() {
+    currentIndex--;
+    if (currentIndex < 0) currentIndex = songs.length - 1;
+    loadSong(currentIndex);
+    audio.play();
+    }
+
+    audio.addEventListener("ended", () => {
+    next();
+    });
+
+    audio.addEventListener("loadedmetadata", () => {
+        progress.max = Math.floor(audio.duration);
+        durationEl.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener("timeupdate", () => {
+        progress.value = Math.floor(audio.currentTime);
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+    });
+
+    progress.addEventListener("input", () => {
+        audio.currentTime = progress.value;
+    });
+
+    function formatTime(seconds) {
+        const min = Math.floor(seconds / 60);
+        const sec = Math.floor(seconds % 60);
+        return min + ":" + (sec < 10 ? "0" + sec : sec);
+    }
+
+    loadSong(0);
+</script>
+
+</html>
