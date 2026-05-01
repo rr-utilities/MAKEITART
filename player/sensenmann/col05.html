@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" href="../../art/cov02.jpg" type="image/jpg">
+    <link rel="apple-touch-icon" href="../../art/cov02.jpg">
+    <meta name="apple-mobile-web-app-title" content="sensenmann">
+</head>
+
+<head>
+    <meta charset="UTF-8">
+    <title>MAKEITART</title>
+</head>
+
+<h2>sensenmann</h2>
+
+<img src="../../art/cov02.jpg" width="200">
+<p>Album / 12 / 44:29 / 01.05.2026</p>
+
+<hr>
+
+<h3 id="title">Kein Song</h3>
+<div>
+    <span id="currentTime">0:00</span>
+    <input type="range" id="progress" value="0" min="0" max="100" step="1" style="width:300px;">
+    <span id="duration">0:00</span>
+</div>
+
+<hr>
+
+<ol id="playlist"></ol>
+
+<hr>
+
+<button onclick="play()">Play</button>
+<button onclick="pause()">Pause</button>
+<button onclick="prev()">Prev</button>
+<button onclick="next()">Next</button>
+
+<audio id="audio"></audio>
+
+<hr>
+
+Distributed by RR Prime (Raisonix Group) <br>
+&copy; 2026 MAKEITART <br>
+&#8471; 2026 MAKEITART
+
+
+<script>
+    const songs = [
+    { title: "intro", src: "intro.m4a" },
+    { title: "freitag der 13. (prelude)", src: "freitag der 13 prelude.m4a" },
+    { title: "freitag der 13.", src: "freitag der 13.m4a" },
+    { title: "schwarzer käfig", src: "schwarzer kafig.m4a" },
+    { title: "angst", src: "angst.m4a" },
+    { title: "alles was zählt (prelude)", src: "alles was zahlt prelude.m4a" },
+    { title: "i have a dream", src: "i have a dream.m4a" },
+    { title: "genius (skit)", src: "genius skit.m4a" },
+    { title: "zwischen ratten und ratten", src: "zwischen ratten und ratten.m4a" },
+    { title: "landquart", src: "landquart.m4a" },
+    { title: "spring", src: "spring.m4a" },
+    { title: "alles was zählt (outro)", src: "alles was zahlt outro.m4a" },
+    ];
+
+    let currentIndex = 0;
+
+    const audio = document.getElementById("audio");
+    const title = document.getElementById("title");
+    const playlist = document.getElementById("playlist");
+    const progress = document.getElementById("progress");
+    const currentTimeEl = document.getElementById("currentTime");
+    const durationEl = document.getElementById("duration");
+
+    function renderPlaylist() {
+    playlist.innerHTML = "";
+    songs.forEach((song, index) => {
+    const li = document.createElement("li");
+    li.textContent = (index === currentIndex ? "▶ " : "") + song.title;
+    li.onclick = () => selectSong(index);
+    playlist.appendChild(li);
+    });
+    }
+
+    function loadSong(index) {
+    currentIndex = index;
+    audio.src = songs[index].src;
+    title.textContent = songs[index].title;
+    renderPlaylist();
+    }
+
+    function selectSong(index) {
+    loadSong(index);
+    audio.play();
+    }
+
+    function play() {
+    audio.play();
+    }
+
+    function pause() {
+    audio.pause();
+    }
+
+    function next() {
+    currentIndex++;
+    if (currentIndex >= songs.length) currentIndex = 0;
+    loadSong(currentIndex);
+    audio.play();
+    }
+
+    function prev() {
+    currentIndex--;
+    if (currentIndex < 0) currentIndex = songs.length - 1;
+    loadSong(currentIndex);
+    audio.play();
+    }
+
+    audio.addEventListener("ended", () => {
+    next();
+    });
+
+    audio.addEventListener("loadedmetadata", () => {
+        progress.max = Math.floor(audio.duration);
+        durationEl.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener("timeupdate", () => {
+        progress.value = Math.floor(audio.currentTime);
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+    });
+
+    progress.addEventListener("input", () => {
+        audio.currentTime = progress.value;
+    });
+
+    function formatTime(seconds) {
+        const min = Math.floor(seconds / 60);
+        const sec = Math.floor(seconds % 60);
+        return min + ":" + (sec < 10 ? "0" + sec : sec);
+    }
+
+    loadSong(0);
+</script>
+
+</html>
