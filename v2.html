@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<meta charset="UTF-8">
+	<title>MAKEITART</title>
+</head>
+
+<body>
+    <button id="playBtn">AMBIENTE</button>
+    <audio id="bgMusic" src="art/" loop></audio>
+
+    <h1>MAKEITART</h1>
+
+    <img src="art/art00.jpg" width="400" alt="art00">
+    <h3>art00 2026-07-01 welcome</h3>
+    <br><br>
+    <a href="index.html">MAKEITART v1</a>, <a href="">MAKEITART v2</a>
+    <br><br><br>
+    <h2>alter ego; late 2027</h2>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+
+<!------------------------------------------------------------->
+<!-- alter ego, eR (?), ambient sample von BULLY, HIGHS AND LOWS (!), ALL THE LOVE oder so -->
+
+<body>
+    <h3>cosy_ambient</h3>
+    <h5>FÜR EIN ANGENEHMES AMBIENTE SORGT DAS LIED "??" VON ??. MEHR INFOS HABE ICH NICHT GEFUNDEN, ABER ES TÖNT GUT.</h5>
+    <br><br><br><br><br>
+</body>
+
+<footer>
+    &copy; 2026 MAKEITART von RR Prime
+</footer>
+
+<style>
+    @media screen and (max-width: 850px) {
+        body > * {
+            display: none !important;
+        }
+
+        body::after {
+            content: "KUNST PLATZ BRAUCHT PLATZ KUNST";
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            font-size: 1.5rem;
+            color: #000;
+            background: #fff;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 9999;
+        }
+    }
+</style>
+
+<script>
+    const audio = document.getElementById("bgMusic");
+    const btn = document.getElementById("playBtn");
+
+    btn.addEventListener("click", () => {
+        if (audio.paused) {
+            audio.play();
+            btn.textContent = "AMBIENTE AN";
+        } else {
+            audio.pause();
+            btn.textContent = "AMBIENTE";
+        }
+    });
+</script>
+
+</html>
